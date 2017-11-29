@@ -1,0 +1,6 @@
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/bin/Tools/ShapeBattle.dll
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/bin/Tools/ShapeBattle.pdb
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/obj/Tools/ShapeBattle.csprojResolveAssemblyReference.cache
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/obj/Tools/ShapeBattle.csproj.CoreCompileInputs.cache
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/obj/Tools/ShapeBattle.dll
+/Users/ericdesedas/Development/projects/godot/shape_battle/.mono/temp/obj/Tools/ShapeBattle.pdb
