@@ -15,3 +15,5 @@ Gameplay will be a combination of real-time and menu-based battle systems. The o
 Note: everyone (party members and boss) will have **move** and **attack** commands alongside their mentioned moveset, which will work this way:
 - Move lets you move your character inside a set area (boss' move covers the entire map)
 - Attack is the simplest form of damage dealing, you move next to the target and strike it
+
+Code will follow these conventions: https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/index
