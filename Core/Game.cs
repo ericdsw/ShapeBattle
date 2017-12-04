@@ -11,8 +11,6 @@ public class Game : Node
     {
         // Called every time the node is added to the scene.
         // Initialization here
-        GD.print("this is a test");
-        GD.print("this is another test");
     }
 
     public override void _Process(float delta)
