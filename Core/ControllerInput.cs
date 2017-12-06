@@ -3,19 +3,19 @@ using System;
 
 public class ControllerInput : Node
 {
-    public enum Keys { Up, Down, Left, Right, Accept, Cancel, Click, None };
-    public event EventHandler<KeyPressedEventArgs> KeyPressed;
+    public enum Actions { Up, Down, Left, Right, Accept, Cancel, Click, None };
+    public event EventHandler<ActionTakenEventArgs> ActionTaken;
 
-    public class KeyPressedEventArgs : EventArgs
+    public class ActionTakenEventArgs : EventArgs
     {
-        private Keys _action;
-        public Keys Action
+        private Actions _action;
+        public Actions Action
         {
             get => _action;
             set => _action = value;
         }
 
-        public KeyPressedEventArgs(Keys action)
+        public ActionTakenEventArgs(Actions action)
         {
             this._action = action;
         }
@@ -28,50 +28,50 @@ public class ControllerInput : Node
 	
     public override void _Input(InputEvent ev)
 	{
-        Keys action = Keys.None;
+        Actions action = Actions.None;
         if (ev is InputEventKey keyEvent)
         {
             if (keyEvent.IsActionPressed("ui_up"))
             {
-                action = Keys.Up;
+                action = Actions.Up;
             }
             else if (keyEvent.IsActionPressed("ui_down"))
             {
-                action = Keys.Down;
+                action = Actions.Down;
             }
             else if (keyEvent.IsActionPressed("ui_left"))
             {
-                action = Keys.Left;
+                action = Actions.Left;
             }
             else if (keyEvent.IsActionPressed("ui_right"))
             {
-                action = Keys.Right;
+                action = Actions.Right;
             }
             else if (keyEvent.IsActionPressed("ui_accept"))
             {
-                action = Keys.Accept;
+                action = Actions.Accept;
             }
             else if (keyEvent.IsActionPressed("ui_cancel"))
             {
-                action = Keys.Cancel;
+                action = Actions.Cancel;
             }
         }
         else if (ev is InputEventMouse mouseEvent)
         {
             if (mouseEvent.IsActionPressed("mouse_accept"))
             {
-                action = Keys.Click;
+                action = Actions.Click;
             }
         }
 
-        if (action != Keys.None)
+        if (action != Actions.None)
         {
-            OnKeyPressed(new KeyPressedEventArgs(action));
+            OnActionTaken(new ActionTakenEventArgs(action));
         }
     }
 
-    protected virtual void OnKeyPressed(KeyPressedEventArgs eventArgs)
+    protected virtual void OnActionTaken(ActionTakenEventArgs eventArgs)
     {
-        KeyPressed?.Invoke(this, eventArgs);
+        ActionTaken?.Invoke(this, eventArgs);
     }
 }
