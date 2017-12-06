@@ -2,53 +2,76 @@ using Godot;
 using System;
 
 public class ControllerInput : Node
-{	
+{
+    public enum Keys { Up, Down, Left, Right, Accept, Cancel, Click, None };
+    public event EventHandler<KeyPressedEventArgs> KeyPressed;
+
+    public class KeyPressedEventArgs : EventArgs
+    {
+        private Keys _action;
+        public Keys Action
+        {
+            get => _action;
+            set => _action = value;
+        }
+
+        public KeyPressedEventArgs(Keys action)
+        {
+            this._action = action;
+        }
+    }
 
     public override void _Ready()
     {
 		
     }
 	
-	public override void _Input(InputEvent ev)
+    public override void _Input(InputEvent ev)
 	{
-		if (ev is InputEventKey)
-		{
-			InputEventKey keyEvent = (InputEventKey) ev;
-			
-			if (keyEvent.IsActionPressed("ui_up"))
-			{
-				GD.Print("pressed up");
-				// send signal
-			} else if (keyEvent.IsActionPressed("ui_down"))
-			{
-				GD.Print("pressed down");
-				// send signal
-			} else if (keyEvent.IsActionPressed("ui_left"))
-			{
-				GD.Print("pressed left");
-				// send signal
-			} else if (keyEvent.IsActionPressed("ui_right"))
-			{
-				GD.Print("pressed right");
-				// send signal
-			} else if (keyEvent.IsActionPressed("ui_accept"))
-			{
-				GD.Print("pressed accept");
-				// send signal
-			} else if (keyEvent.IsActionPressed("ui_cancel"))
-			{
-				GD.Print("pressed cancel");
-				// send signal
-			}
-		} else if (ev is InputEventMouse)
-		{
-			InputEventMouse mouseEvent = (InputEventMouse) ev;
-			
-			if (mouseEvent.IsActionPressed("mouse_accept"))
-			{
-				GD.Print("clicked accept");
-				// send signal
-			}
-		}
-	}
+        Keys action = Keys.None;
+        if (ev is InputEventKey keyEvent)
+        {
+            if (keyEvent.IsActionPressed("ui_up"))
+            {
+                action = Keys.Up;
+            }
+            else if (keyEvent.IsActionPressed("ui_down"))
+            {
+                action = Keys.Down;
+            }
+            else if (keyEvent.IsActionPressed("ui_left"))
+            {
+                action = Keys.Left;
+            }
+            else if (keyEvent.IsActionPressed("ui_right"))
+            {
+                action = Keys.Right;
+            }
+            else if (keyEvent.IsActionPressed("ui_accept"))
+            {
+                action = Keys.Accept;
+            }
+            else if (keyEvent.IsActionPressed("ui_cancel"))
+            {
+                action = Keys.Cancel;
+            }
+        }
+        else if (ev is InputEventMouse mouseEvent)
+        {
+            if (mouseEvent.IsActionPressed("mouse_accept"))
+            {
+                action = Keys.Click;
+            }
+        }
+
+        if (action != Keys.None)
+        {
+            OnKeyPressed(new KeyPressedEventArgs(action));
+        }
+    }
+
+    protected virtual void OnKeyPressed(KeyPressedEventArgs eventArgs)
+    {
+        KeyPressed?.Invoke(this, eventArgs);
+    }
 }
