@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\Square\Square.cs" />
+    <Compile Include="Core\ControllerInput.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Maps\CameraContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
