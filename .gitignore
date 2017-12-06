@@ -1,1 +1,4 @@
 .mono/
+*.userprefs
+*.user
+.DS_Store

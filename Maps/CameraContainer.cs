@@ -1,89 +1,94 @@
 using Godot;
 using System;
 
-public class CameraContainer : Node2D
-{
-    private CameraPriorityTarget _PriorityTarget;
-    private Node2D[] _FollowTargets;
-    private Rect2 _CameraRect;
-
-    private Node2D _Viewport;
-	private Camera2D _Camera;
-
-    public override void _Ready()
+namespace ShapeBattle.Maps 
+{    
+    public class CameraContainer : Node2D
     {
-        _Viewport = (Node2D) GetNode("Viewport");
-		_Camera = (Camera2D) GetNode("Camera");
-    }
+        // Internal variables
+        private IPriorityTarget priorityTarget;
+        private Rect2 cameraRect;
+        private Node2D[] followTargets = { };
 
-    public override void _PhysicsProcess(float delta)
-    {
-        if (_PriorityTarget != null) 
+        // Nodes
+        private Node2D viewport;
+        private Camera2D camera;
+
+        public override void _Ready()
         {
-            Vector2 MediumPoint = _PriorityTarget.GetPosition();
-
-            foreach (Node2D followTarget in _FollowTargets)
-            {
-                MediumPoint = (MediumPoint + followTarget.Position) / 2;
-            }
-
-            Rect2 CameraRect = _GenerateCameraViewportRect(MediumPoint);
-
-            if (_CameraRect.Encloses(_PriorityTarget.GetEnclosingRect()))
-            {
-                Vector2 StartOffset = _GetOutsideStartMovement(CameraRect);
-                Vector2 EndOffset   = _GetOutsideEndMovement(CameraRect);
-                MediumPoint += StartOffset + EndOffset;
-            }
-
-            GlobalPosition = MediumPoint;
+            viewport = (Node2D) GetNode("Viewport");
+            camera   = (Camera2D) GetNode("Camera");
         }
-    }
-	
-	public void Follow(CameraPriorityTarget target)
-	{
-		_PriorityTarget = target;
-	}
 
-    public void Follow(CameraPriorityTarget target, Node2D[] additionalTargets)
-    {
-        _PriorityTarget = target;
-        _FollowTargets = additionalTargets;
-    }
+        public override void _PhysicsProcess(float delta)
+        {
+            if (priorityTarget != null)
+            {
+                Vector2 mediumPoint = priorityTarget.GetCenter();
 
-    public void ShowInViewport(Node element)
-    {
-        _Viewport.AddChild(element);
-    }
+                foreach (Node2D followTarget in followTargets)
+                {
+                    mediumPoint = (mediumPoint + followTarget.Position) / 2;
+                }
 
-    private Rect2 _GenerateCameraViewportRect(Vector2 centerPoint)
-    {
-        Vector2 ViewportPosition = GetViewportRect().Position;
-        Vector2 ViewportSize     = GetViewportRect().Size;
+                Rect2 CameraRect = _GenerateCameraViewportRect(mediumPoint);
 
-        return new Rect2(
-                ViewportPosition.x + centerPoint.x - ViewportSize.x * (_Camera.Zoom.x / 2),
-                ViewportPosition.y + centerPoint.y - ViewportSize.y * (_Camera.Zoom.y / 2),
-                ViewportSize.x * _Camera.Zoom.x,
-                ViewportSize.y * _Camera.Zoom.y
-        );
-    }
+                if (cameraRect.Encloses(priorityTarget.GetEnclosingRect()))
+                {
+                    Vector2 StartOffset = _GetOutsideStartMovement(CameraRect);
+                    Vector2 EndOffset   = _GetOutsideEndMovement(CameraRect);
+                    mediumPoint += StartOffset + EndOffset;
+                }
 
-    private Vector2 _GetOutsideStartMovement(Rect2 enclosingRect)
-    {
-        Vector2 Difference = enclosingRect.Position - _PriorityTarget.GetEnclosingRect().Position;
-        Vector2 Movement   = new Vector2(0,0);
-        if (Difference.x > 0) { Movement.x -= Difference.x; }
-        if (Difference.y > 0) { Movement.y -= Difference.y; }
-        return Movement;
-    }
+                GlobalPosition = mediumPoint;
+            }
+        }
 
-    private Vector2 _GetOutsideEndMovement(Rect2 enclosingRect)
-    {
-        Vector2 Difference = enclosingRect.End - _PriorityTarget.GetEnclosingRect().End;
-        Vector2 Movement   = new Vector2(0,0);
-        if (Difference.x < 0) { Movement.x -= Difference.x; }
-        if (Difference.y < 0) { Movement.y -= Difference.y; }
-        return Movement;
+        public void Follow(IPriorityTarget target)
+        {
+            priorityTarget = target;
+        }
+
+        public void Follow(IPriorityTarget target, Node2D[] additionalTargets)
+        {
+            priorityTarget = target;
+            followTargets  = additionalTargets;
+        }
+
+        public void ShowInViewport(Node2D element)
+        {
+            viewport.AddChild(element);
+        }
+
+        private Rect2 _GenerateCameraViewportRect(Vector2 centerPoint)
+        {
+            Vector2 ViewportPosition = GetViewportRect().Position;
+            Vector2 ViewportSize = GetViewportRect().Size;
+
+            return new Rect2(
+                    ViewportPosition.x + centerPoint.x - ViewportSize.x * (camera.Zoom.x / 2),
+                    ViewportPosition.y + centerPoint.y - ViewportSize.y * (camera.Zoom.y / 2),
+                    ViewportSize.x * camera.Zoom.x,
+                    ViewportSize.y * camera.Zoom.y
+            );
+        }
+
+        private Vector2 _GetOutsideStartMovement(Rect2 enclosingRect)
+        {
+            Vector2 Difference = enclosingRect.Position - priorityTarget.GetEnclosingRect().Position;
+            Vector2 Movement = new Vector2(0, 0);
+            if (Difference.x > 0) { Movement.x -= Difference.x; }
+            if (Difference.y > 0) { Movement.y -= Difference.y; }
+            return Movement;
+        }
+
+        private Vector2 _GetOutsideEndMovement(Rect2 enclosingRect)
+        {
+            Vector2 Difference = enclosingRect.End - priorityTarget.GetEnclosingRect().End;
+            Vector2 Movement = new Vector2(0, 0);
+            if (Difference.x < 0) { Movement.x -= Difference.x; }
+            if (Difference.y < 0) { Movement.y -= Difference.y; }
+            return Movement;
+        }
     }
 }

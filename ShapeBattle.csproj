@@ -49,10 +49,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Square\Square.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Maps\CameraContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Maps\CameraPriorityTarget.cs" />
+    <Compile Include="Maps\IPriorityTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
