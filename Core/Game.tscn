@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Core/Game.cs" type="Script" id=1]
 [ext_resource path="res://Core/ControllerInput.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Maps/CameraContainer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Characters/Square/SquareBody.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 
 [node name="ControllerInput" parent="." instance=ExtResource( 2 )]
+
+[node name="CameraContainer" parent="." instance=ExtResource( 3 )]
+
+[node name="Square" parent="." instance=ExtResource( 4 )]
 
 

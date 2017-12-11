@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Characters/Square/SquareBody.cs" type="Script" id=1]
+[ext_resource path="res://Characters/Square/square_sprite.png" type="Texture" id=2]
+[ext_resource path="res://Characters/Square/SquareSprite.cs" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 17.014, 16.8976 )
+
+[node name="SquareBody" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+MovementSpeed = 300.0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+rotationSpeed = 3.0
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="TopLeft" type="Position2D" parent="Boundaries"]
+
+position = Vector2( -22, -22 )
+
+[node name="BottomRight" type="Position2D" parent="Boundaries"]
+
+position = Vector2( 22, 22 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+
+

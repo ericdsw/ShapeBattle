@@ -49,12 +49,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\Square\Square.cs" />
+    <Compile Include="Characters\Square\SquareBody.cs" />
     <Compile Include="Core\ControllerInput.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Maps\CameraContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Maps\IPriorityTarget.cs" />
+    <Compile Include="Characters\Square\SquareSprite.cs" />
+    <Compile Include="Characters\Base\BasePlayerBody.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Characters\Base\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
