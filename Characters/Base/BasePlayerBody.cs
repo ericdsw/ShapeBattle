@@ -10,6 +10,18 @@ namespace ShapeBattle.Characters.Base
 
         private Vector2? _targetPosition;
 
+        private Boolean _active;
+        public Boolean Active
+        {
+            get => _active;
+            set => _active = value;
+        }
+
+        public BasePlayerBody()
+        {
+            _active = false;
+        }
+
         public void MoveToPosition(Vector2 position)
         {
             _targetPosition = position;
@@ -17,20 +29,21 @@ namespace ShapeBattle.Characters.Base
 
         public override void _PhysicsProcess(float delta)
         {
-            if (_targetPosition.HasValue)
-            {
-
-                if (Position.DistanceTo(_targetPosition.Value) > 5)
+            if (_active) {
+                if (_targetPosition.HasValue)
                 {
-                    Vector2 direction = (_targetPosition.Value - Position).Normalized();
-                    Vector2 motion = direction * MovementSpeed * delta;
+                    if (Position.DistanceTo(_targetPosition.Value) > 5)
+                    {
+                        Vector2 direction = (_targetPosition.Value - Position).Normalized();
+                        Vector2 motion = direction * MovementSpeed * delta;
 
-                    Position += motion;
-                }
-                else
-                {
-                    Position = _targetPosition.Value;
-                    _targetPosition = null;
+                        Position += motion;
+                    }
+                    else
+                    {
+                        Position = _targetPosition.Value;
+                        _targetPosition = null;
+                    }
                 }
             }
         }

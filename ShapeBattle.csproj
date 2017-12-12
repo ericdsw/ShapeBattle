@@ -57,9 +57,12 @@
     <Compile Include="Maps\IPriorityTarget.cs" />
     <Compile Include="Characters\Square\SquareSprite.cs" />
     <Compile Include="Characters\Base\BasePlayerBody.cs" />
+    <Compile Include="Characters\Square\Square.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Characters\Base\" />
+    <Folder Include="Characters\Triangle\" />
+    <Folder Include="Characters\Circle\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

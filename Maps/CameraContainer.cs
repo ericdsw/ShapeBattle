@@ -16,8 +16,8 @@ namespace ShapeBattle.Maps
 
         public override void _Ready()
         {
-            _viewport = (Node2D) GetNode("Viewport");
-            _camera   = (Camera2D) GetNode("Camera");
+            _viewport = (Node2D)GetNode("Viewport");
+            _camera   = (Camera2D)GetNode("Camera");
         }
 
         public override void _PhysicsProcess(float delta)
