@@ -58,6 +58,7 @@
     <Compile Include="Characters\Square\SquareSprite.cs" />
     <Compile Include="Characters\Base\BasePlayerBody.cs" />
     <Compile Include="Characters\Square\Square.cs" />
+    <Compile Include="Characters\Commands\MoveCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Characters\Base\" />
@@ -68,6 +69,7 @@
     <Compile Include="Characters\PartyMember.cs" />
     <Compile Include="UI\BattleButton.cs" />
     <Compile Include="UI\PartyMemberMenu.cs" />
+    <Folder Include="Characters\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\" />

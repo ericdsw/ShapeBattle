@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace ShapeBattle.Characters
 {
-    public abstract class PartyMember : IBattleCommandProvider
+    public abstract class PartyMember : Node, IBattleCommandProvider
     {
         private String _name;
         private int _maxHP;
@@ -39,13 +40,6 @@ namespace ShapeBattle.Characters
             }
         }
 
-        protected PartyMember(String name, int maxHP)
-        {
-            this.Name = name;
-            this.MaxHP = maxHP;
-            this.CurrentHP = maxHP;
-        }
-
         public List<BattleCommand> Commands;
 
         public void AddCommand(BattleCommand command)
@@ -56,6 +50,11 @@ namespace ShapeBattle.Characters
         public List<BattleCommand> ProvideCommands()
         {
             return Commands;
+        }
+
+        public PartyMember()
+        {
+            Commands = new List<BattleCommand>();
         }
     }
 }

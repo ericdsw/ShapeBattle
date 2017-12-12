@@ -1,15 +1,26 @@
 using Godot;
 using System;
 using ShapeBattle.Maps;
+using ShapeBattle.Characters.Square;
 
 namespace ShapeBattle.Core 
 {    
     public class Game : Node
     {
+        public PartyMemberMenu PartyMemberMenu;
+        public Square Square;
         private ControllerInput ci;
 
         public override void _Ready()
         {
+            Square = new Square();
+
+            var PartyMemberMenuPackedScene = ResourceLoader.Load("res://UI/PartyMemberMenu.tscn") as PackedScene;
+            PartyMemberMenu = PartyMemberMenuPackedScene.Instance() as PartyMemberMenu;
+            PartyMemberMenu.PartyMember = Square;
+            PartyMemberMenu.Position = new Vector2(0, 0);
+            AddChild(PartyMemberMenu);
+
             ci = (ControllerInput)GetNode("ControllerInput");
             ci.ActionTaken += Ci_ActionTaken;
         }
