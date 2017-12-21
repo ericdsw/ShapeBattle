@@ -55,9 +55,6 @@ namespace ShapeBattle.Core
                 case ControllerInput.Actions.Click:
                     GD.Print("Received signal, click was pressed.");
                     break;
-                default:
-                    // Nothing is being pressed
-                    break;
             }
         }
     }

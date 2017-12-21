@@ -1,8 +1,7 @@
 using Godot;
-using System;
 
-namespace ShapeBattle.Maps 
-{    
+namespace ShapeBattle.Maps
+{
     public class CameraContainer : Node2D
     {
         // Internal variables
@@ -16,8 +15,8 @@ namespace ShapeBattle.Maps
 
         public override void _Ready()
         {
-            _viewport = (Node2D)GetNode("Viewport");
-            _camera   = (Camera2D)GetNode("Camera");
+            _viewport = GetNode("Viewport") as Node2D;
+            _camera   = GetNode("Camera") as Camera2D;
         }
 
         public override void _PhysicsProcess(float delta)
@@ -39,7 +38,6 @@ namespace ShapeBattle.Maps
                     Vector2 endOffset   = _GetOutsideEndMovement(cameraRect);
                     mediumPoint += startOffset + endOffset;
                 }
-
                 GlobalPosition = mediumPoint;
             }
         }
@@ -52,7 +50,7 @@ namespace ShapeBattle.Maps
         public void Follow(IPriorityTarget target, Node2D[] additionalTargets)
         {
             _priorityTarget = target;
-            _followTargets  = additionalTargets;
+            _followTargets = additionalTargets;
         }
 
         public void ShowInViewport(Node2D element)
@@ -66,28 +64,40 @@ namespace ShapeBattle.Maps
             Vector2 viewportSize = GetViewportRect().Size;
 
             return new Rect2(
-                    viewportPosition.x + centerPoint.x - viewportSize.x * (_camera.Zoom.x / 2),
-                    viewportPosition.y + centerPoint.y - viewportSize.y * (_camera.Zoom.y / 2),
-                    viewportSize.x * _camera.Zoom.x,
-                    viewportSize.y * _camera.Zoom.y
+                viewportPosition.x + centerPoint.x - viewportSize.x * (_camera.Zoom.x / 2),
+                viewportPosition.y + centerPoint.y - viewportSize.y * (_camera.Zoom.y / 2),
+                viewportSize.x * _camera.Zoom.x,
+                viewportSize.y * _camera.Zoom.y
             );
         }
 
         private Vector2 _GetOutsideStartMovement(Rect2 enclosingRect)
         {
-            Vector2 Difference = enclosingRect.Position - _priorityTarget.GetEnclosingRect().Position;
-            Vector2 Movement = new Vector2(0, 0);
-            if (Difference.x > 0) { Movement.x -= Difference.x; }
-            if (Difference.y > 0) { Movement.y -= Difference.y; }
+            var Difference = enclosingRect.Position - _priorityTarget.GetEnclosingRect().Position;
+            var Movement = new Vector2(0, 0);
+            if (Difference.x > 0)
+            {
+                Movement.x -= Difference.x;
+            }
+            if (Difference.y > 0)
+            {
+                Movement.y -= Difference.y;
+            }
             return Movement;
         }
 
         private Vector2 _GetOutsideEndMovement(Rect2 enclosingRect)
         {
-            Vector2 Difference = enclosingRect.End - _priorityTarget.GetEnclosingRect().End;
-            Vector2 Movement = new Vector2(0, 0);
-            if (Difference.x < 0) { Movement.x -= Difference.x; }
-            if (Difference.y < 0) { Movement.y -= Difference.y; }
+            var Difference = enclosingRect.End - _priorityTarget.GetEnclosingRect().End;
+            var Movement = new Vector2(0, 0);
+            if (Difference.x < 0)
+            {
+                Movement.x -= Difference.x;
+            }
+            if (Difference.y < 0)
+            {
+                Movement.y -= Difference.y;
+            }
             return Movement;
         }
     }

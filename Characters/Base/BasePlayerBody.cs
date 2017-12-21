@@ -13,8 +13,8 @@ namespace ShapeBattle.Characters.Base
         private Boolean _active;
         public Boolean Active
         {
-            get => _active;
-            set => _active = value;
+            get { return _active; }
+            set { _active = value; }
         }
 
         public BasePlayerBody()
@@ -29,7 +29,8 @@ namespace ShapeBattle.Characters.Base
 
         public override void _PhysicsProcess(float delta)
         {
-            if (_active) {
+            if (_active)
+            {
                 if (_targetPosition.HasValue)
                 {
                     if (Position.DistanceTo(_targetPosition.Value) > 5)

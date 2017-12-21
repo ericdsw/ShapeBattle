@@ -12,17 +12,17 @@ namespace ShapeBattle.Characters
 
         public String Name
         {
-            get => _name;
-            set => _name = value;
+            get { return _name; }
+            set { _name = value; }
         }
         public int MaxHP
         {
-            get => _maxHP;
-            set => _maxHP = value;
+            get { return _maxHP; }
+            set { _maxHP = value; }
         }
         public int CurrentHP
         {
-            get => _currentHP;
+            get  { return _currentHP; }
             set
             {
                 if (value <= 0)

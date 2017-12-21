@@ -11,8 +11,8 @@ public class ControllerInput : Node
         private Actions _action;
         public Actions Action
         {
-            get => _action;
-            set => _action = value;
+            get { return _action; }
+            set { _action = value; }
         }
 
         public ActionTakenEventArgs(Actions action)
@@ -23,13 +23,13 @@ public class ControllerInput : Node
 
     public override void _Ready()
     {
-		
+        //
     }
 	
-    public override void _Input(InputEvent ev)
+    public override void _Input(InputEvent keyEvent)
 	{
         Actions action = Actions.None;
-        if (ev is InputEventKey keyEvent)
+        if (keyEvent is InputEventKey)
         {
             if (keyEvent.IsActionPressed("ui_up"))
             {
@@ -56,9 +56,9 @@ public class ControllerInput : Node
                 action = Actions.Cancel;
             }
         }
-        else if (ev is InputEventMouse mouseEvent)
+        else if (keyEvent is InputEventMouse)
         {
-            if (mouseEvent.IsActionPressed("mouse_accept"))
+            if (keyEvent.IsActionPressed("mouse_accept"))
             {
                 action = Actions.Click;
             }

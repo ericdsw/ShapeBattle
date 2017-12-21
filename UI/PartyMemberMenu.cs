@@ -36,10 +36,10 @@ public class PartyMemberMenu : Node2D
     }
 
     //TODO: move to global helper
-    public T GenerateResource<T>(String resourceName) where T : Node
+    public static T GenerateResource<T>(String resourceName) where T : Node
     {
-        PackedScene scene = ResourceLoader.Load(resourceName) as PackedScene;
-        T resource = scene.Instance() as T;
+        var scene = ResourceLoader.Load(resourceName) as PackedScene;
+        var resource = scene.Instance() as T;
         return resource;
     }
 }

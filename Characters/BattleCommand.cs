@@ -9,13 +9,13 @@ namespace ShapeBattle.Characters
 
         public String Name
         {
-            get => _name;
-            set => _name = value;
+            get { return _name; }
+            set { _name = value; }
         }
         public float EnergyReplenishTime
         {
-            get => _energyReplenishTime;
-            set => _energyReplenishTime = value;
+            get { return _energyReplenishTime; }
+            set { _energyReplenishTime = value; }
         }
 
         public abstract void Execute();
