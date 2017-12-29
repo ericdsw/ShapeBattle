@@ -5,14 +5,14 @@
 [ext_resource path="res://Maps/CameraContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Square/SquareBody.tscn" type="PackedScene" id=4]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
-[node name="ControllerInput" parent="." instance=ExtResource( 2 )]
+[node name="ControllerInput" parent="." index="0" instance=ExtResource( 2 )]
 
-[node name="CameraContainer" parent="." instance=ExtResource( 3 )]
+[node name="CameraContainer" parent="." index="1" instance=ExtResource( 3 )]
 
-[node name="Square" parent="." instance=ExtResource( 4 )]
+[node name="Square" parent="." index="2" instance=ExtResource( 4 )]
 
 

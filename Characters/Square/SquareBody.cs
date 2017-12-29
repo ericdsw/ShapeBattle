@@ -18,7 +18,7 @@ namespace ShapeBattle.Characters.Square
         public Rect2 GetEnclosingRect()
         {
             var startPoint = GetNode("Boundaries/StartPoint") as Position2D;
-            var endPoint = GetNode("Boundaries/EndPoint") as Position2D;
+            var endPoint   = GetNode("Boundaries/EndPoint") as Position2D;
 
             return new Rect2(startPoint.Position, endPoint.Position);
         }

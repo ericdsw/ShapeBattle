@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using ShapeBattle.Maps;
 using ShapeBattle.Characters.Square;
 
 namespace ShapeBattle.Core 
